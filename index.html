@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>银骨工作室 · 首页</title>
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
+    <style>
+        /* ── 全局重置 ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #FFFFFF;
+            color: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ── 顶部导航 ── */
+        .site-header {
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .site-header .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
+            transition: opacity 0.2s;
+        }
+        .site-header .logo-link:hover {
+            opacity: 0.7;
+        }
+        .site-header .logo-link img {
+            height: 32px;
+            width: auto;
+            display: block;
+        }
+        .site-header .logo-link .site-name-small {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            color: #2d2d2d;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            color: #555;
+            transition: color 0.2s;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links a:hover {
+            color: #0082FF;
+        }
+        .nav-links a.active {
+            color: #0082FF;
+            border-bottom-color: #0082FF;
+        }
+
+        /* ── 主容器 ── */
+        .main-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px 32px 60px 32px;
+        }
+
+        /* ── 首页样式 ── */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 18px;
+        }
+
+        .hero-logo {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .hero-logo img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-title {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 34px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #1a1a1a;
+            margin-top: 6px;
+            margin-bottom: 2px;
+        }
+        .hero-subtitle {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: #555;
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+        }
+        .hero-divider {
+            width: 60px;
+            height: 2px;
+            background-color: #0082FF;
+            margin: 10px auto 18px auto;
+        }
+        .hero-desc {
+            font-size: 16px;
+            color: #3a3a3a;
+            max-width: 520px;
+            margin: 0 auto 28px auto;
+            line-height: 1.8;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 28px;
+            font-size: 15px;
+            font-weight: 500;
+            border: 1.5px solid #0082FF;
+            border-radius: 6px;
+            background-color: transparent;
+            color: #0082FF;
+            cursor: pointer;
+            transition: background-color 0.25s, color 0.25s;
+            letter-spacing: 0.5px;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background-color: #0082FF;
+            color: #FFFFFF;
+            border-color: #0082FF;
+        }
+        .btn-primary:hover {
+            background-color: #0068cc;
+            border-color: #0068cc;
+            color: #FFFFFF;
+        }
+        .btn-outline:hover {
+            background-color: #0082FF;
+            color: #FFFFFF;
+        }
+
+        /* ── 页脚 ── */
+        .site-footer {
+            text-align: center;
+            padding: 36px 32px 24px 32px;
+            border-top: 1px solid #eaeaea;
+            font-size: 13px;
+            color: #aaa;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+        }
+        .site-footer span {
+            font-family: Georgia, "Times New Roman", serif;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .site-header {
+                padding: 12px 20px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .site-header .logo-link .site-name-small {
+                font-size: 13px;
+            }
+            .site-header .logo-link img {
+                height: 26px;
+            }
+            .nav-links {
+                font-size: 14px;
+                gap: 14px;
+            }
+            .main-container {
+                padding: 24px 20px 40px 20px;
+            }
+            .hero-title {
+                font-size: 26px;
+            }
+            .hero-subtitle {
+                font-size: 15px;
+                letter-spacing: 2px;
+            }
+            .hero-desc {
+                font-size: 14px;
+                padding: 0 6px;
+            }
+            .btn {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+            .btn-group {
+                gap: 10px;
+            }
+        }
+        @media (max-width: 400px) {
+            .hero-title {
+                font-size: 22px;
+            }
+            .site-header .logo-link .site-name-small {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <header class="site-header">
+        <a href="index.html" class="logo-link">
+            <img src="img/logo.png" alt="银骨工作室" />
+            <span class="site-name-small">Silver Bone Studio</span>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html" class="active">主页</a>
+            <a href="download.html">下载</a>
+        </nav>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="main-container">
+        <section class="hero">
+            <div class="hero-logo">
+                <img src="img/big_logo.png" alt="Silver Bone Studio 银骨工作室" />
+            </div>
+            <h1 class="hero-title">Silver Bone Studio</h1>
+            <p class="hero-subtitle">银骨工作室</p>
+            <div class="hero-divider"></div>
+            <p class="hero-desc">
+                银骨工作室致力于创造简单、实用的数字产品。<br />
+                我们相信简洁的力量，用匠心打磨每一行代码与设计。
+            </p>
+            <div class="btn-group">
+                <a href="https://afdian.com/a/SilverBoneStudio" target="_blank" class="btn btn-primary">爱发电 · 主页</a>
+                <a href="https://afdian.com/a/SilverBoneStudio/plan" target="_blank" class="btn btn-outline">爱发电 · 赞助</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span>Silver Bone Studio</span> &nbsp;·&nbsp; 银骨工作室 &nbsp;·&nbsp; 2026
+    </footer>
+
+</body>
+</html>

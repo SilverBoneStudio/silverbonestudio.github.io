@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>银骨工作室 · 下载 </title>
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
+    <style>
+        /* ── 隐藏滚动条但保留滚动功能 ── */
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* ── 全局重置 ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #FFFFFF;
+            color: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ── 顶部导航 ── */
+        .site-header {
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .site-header .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
+            transition: opacity 0.2s;
+        }
+        .site-header .logo-link:hover {
+            opacity: 0.7;
+        }
+        .site-header .logo-link img {
+            height: 32px;
+            width: auto;
+            display: block;
+        }
+        .site-header .logo-link .site-name-small {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            color: #2d2d2d;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            color: #555;
+            transition: color 0.2s;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links a:hover {
+            color: #0082FF;
+        }
+        .nav-links a.active {
+            color: #0082FF;
+            border-bottom-color: #0082FF;
+        }
+
+        /* ── 主容器 ── */
+        .main-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px 32px 60px 32px;
+        }
+
+        /* ── 下载页样式 ── */
+        .download-section .section-title {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+        .download-section .section-sub {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 28px;
+            letter-spacing: 0.3px;
+        }
+
+        .software-item {
+            border-bottom: 1px solid #eaeaea;
+            padding: 16px 0;
+            transition: padding 0.3s ease;
+        }
+        .software-item:last-child {
+            border-bottom: none;
+        }
+
+        .software-item .item-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            padding: 4px 0;
+            user-select: none;
+            transition: opacity 0.2s;
+        }
+        .software-item .item-header:hover {
+            opacity: 0.75;
+        }
+
+        .software-item .item-header .icon-wrap {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #f5f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .software-item .item-header .icon-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .software-item .item-header .item-name {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1a1a1a;
+            letter-spacing: 0.3px;
+            flex: 1;
+        }
+
+        .software-item .item-header .toggle-icon {
+            font-size: 18px;
+            color: #999;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 8px;
+        }
+        .software-item .item-header .toggle-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .software-item .item-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.4s ease,
+                margin 0.3s ease;
+            opacity: 0;
+            margin-top: 0;
+        }
+        .software-item .item-detail.open {
+            max-height: 1200px;
+            opacity: 1;
+            margin-top: 16px;
+        }
+
+        .software-item .detail-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 4px 0 8px 0;
+        }
+
+        .software-item .detail-inner .preview-wrap {
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #f5f7fa;
+            max-width: 100%;
+        }
+        .software-item .detail-inner .preview-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .software-item .detail-inner .desc-text {
+            font-size: 15px;
+            color: #3a3a3a;
+            line-height: 1.7;
+            letter-spacing: 0.2px;
+            white-space: pre-line;
+        }
+
+        /* ── 更新日志 ── */
+        .software-item .changelog {
+            margin-top: 4px;
+            border-top: 1px dashed #e0e0e0;
+            padding-top: 14px;
+        }
+        .software-item .changelog .changelog-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .software-item .changelog ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .software-item .changelog ul li {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.7;
+            padding: 2px 0 2px 18px;
+            position: relative;
+            letter-spacing: 0.2px;
+        }
+        .software-item .changelog ul li::before {
+            content: "·";
+            position: absolute;
+            left: 2px;
+            color: #0082FF;
+            font-weight: 700;
+        }
+        .software-item .changelog .version-tag {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0082FF;
+            background: #f0f7ff;
+            padding: 0 8px;
+            border-radius: 4px;
+            margin-right: 6px;
+        }
+        .software-item .changelog .version-date {
+            font-size: 13px;
+            color: #999;
+            margin-left: 4px;
+        }
+
+        /* ── 按钮行 ── */
+        .software-item .detail-inner .download-row {
+            display: flex;
+            align-items: center;
+            gap: 12px 16px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1.5px solid #0082FF;
+            border-radius: 6px;
+            background-color: transparent;
+            color: #0082FF;
+            cursor: pointer;
+            transition: background-color 0.25s, color 0.25s, opacity 0.2s;
+            letter-spacing: 0.5px;
+            font-family: inherit;
+            line-height: 1.4;
+        }
+
+        .btn-download {
+            background-color: #0082FF;
+            color: #FFFFFF;
+            border-color: #0082FF;
+        }
+        .btn-download:hover {
+            background-color: #0068cc;
+            border-color: #0068cc;
+            color: #FFFFFF;
+        }
+
+        .btn-old-version {
+            border-color: #b0c8e0;
+            color: #557a9a;
+        }
+        .btn-old-version:hover {
+            background-color: #e6eef7;
+            border-color: #0082FF;
+            color: #0082FF;
+        }
+
+        .file-size {
+            font-size: 13px;
+            color: #999;
+            letter-spacing: 0.2px;
+        }
+
+        /* ── 模态框（赞助弹窗） ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(2px);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 36px 40px 32px 40px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eaeaea;
+        }
+        .modal-box h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        .modal-box p {
+            font-size: 15px;
+            color: #444;
+            margin: 12px 0 24px 0;
+            line-height: 1.6;
+        }
+        .modal-box .btn {
+            padding: 10px 32px;
+            font-size: 16px;
+        }
+        .modal-box .btn-close-modal {
+            background: transparent;
+            border: none;
+            color: #999;
+            font-size: 14px;
+            margin-top: 16px;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 4px 8px;
+        }
+        .modal-box .btn-close-modal:hover {
+            color: #555;
+        }
+
+        .site-footer {
+            text-align: center;
+            padding: 36px 32px 24px 32px;
+            border-top: 1px solid #eaeaea;
+            font-size: 13px;
+            color: #aaa;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+        }
+        .site-footer span {
+            font-family: Georgia, "Times New Roman", serif;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .site-header {
+                padding: 12px 20px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .site-header .logo-link .site-name-small {
+                font-size: 13px;
+            }
+            .site-header .logo-link img {
+                height: 26px;
+            }
+            .nav-links {
+                font-size: 14px;
+                gap: 14px;
+            }
+            .main-container {
+                padding: 24px 20px 40px 20px;
+            }
+            .software-item .item-header .icon-wrap {
+                width: 40px;
+                height: 40px;
+            }
+            .software-item .item-header .item-name {
+                font-size: 16px;
+            }
+            .software-item .detail-inner .desc-text {
+                font-size: 14px;
+            }
+            .download-section .section-title {
+                font-size: 20px;
+            }
+            .modal-box {
+                padding: 28px 20px 24px 20px;
+            }
+            .modal-box h3 {
+                font-size: 19px;
+            }
+            .software-item .changelog ul li {
+                font-size: 13px;
+                padding-left: 16px;
+            }
+            .software-item .detail-inner .download-row {
+                gap: 10px;
+            }
+            .btn {
+                padding: 6px 16px;
+                font-size: 13px;
+            }
+        }
+        @media (max-width: 400px) {
+            .site-header .logo-link .site-name-small {
+                display: none;
+            }
+            .software-item .item-header .toggle-icon {
+                font-size: 15px;
+            }
+            .file-size {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <a href="index.html" class="logo-link">
+            <img src="img/logo.png" alt="银骨工作室" />
+            <span class="site-name-small">Silver Bone Studio</span>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">主页</a>
+            <a href="download.html" class="active">下载</a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <section class="download-section">
+            <h2 class="section-title">下载</h2>
+            <p class="section-sub">点击软件名称展开详情，下载后感谢您的支持</p>
+
+            <!-- 软件条目 1：Bone-Down，短视频下载器 -->
+            <div class="software-item">
+                <div class="item-header" data-target="detail1">
+                    <span class="icon-wrap"><img src="img/icon.png" alt="软件图标" /></span>
+                    <span class="item-name">Bone-Down，短视频下载器</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="item-detail" id="detail1">
+                    <div class="detail-inner">
+                        <div class="preview-wrap"><img src="img/view.png" alt="预览图" /></div>
+                        <p class="desc-text">·界面简洁
+·无复杂操作
+·下载速度快
+·下载支持B站，抖音，微博三个平台的短视频
+·最高清晰度*
+
+*B站需要登录哔哩哔哩账号才能下载更高清晰度，如果有哔哩哔哩大会员账号登录后可下载大会员专属清晰度
+
+**本下载器全程仅与视频网站进行必要的数据交互，绝不连接任何第三方服务器。所有视频处理均在本地完成，在显著提升视频下载速度的同时，从源头杜绝隐私泄露风险。为确保此纯本地化运行机制，我们已将全部依赖预先集成至其中，因此体积较大，下载时烦请稍作等待，感谢您的理解⌛️**
+如您在使用过程中遇到任何问题，可私信我：https://space.bilibili.com/3546573524962074
+如您体验下来感觉对您有帮助，可支持一下我们☕️：https://ifdian.net/a/SilverBoneStudio/plan</p>
+
+                        <!-- 更新日志 -->
+                        <div class="changelog">
+                            <div class="changelog-title">更新日志</div>
+                            <ul>
+                                <li><span class="version-tag">v1.0.0.3</span> — 优化了一些细节</li>
+                                <li><span class="version-tag">v1.0.0.2</span> — 修复下载B站合集中的视频时异常</li>
+                                <li><span class="version-tag">v1.0.0.1</span> — 修复因不同dpi导致的登录窗口显示异常</li>
+                                <li><span class="version-tag">v1.0.0.0</span> — 无</li>
+                            </ul>
+                        </div>
+
+                        <!-- 下载按钮组 -->
+                        <div class="download-row">
+                            <!-- 主下载：使用 button，点击触发下载与弹窗 -->
+                            <button class="btn btn-download" 
+                                    data-url="https://github.com/SilverBoneStudio/Bone-Down/releases/download/v1.0.0.3/Bone-Down_1.0.0.3_win.zip">
+                                下载
+                            </button>
+                            <span class="file-size">v1.0.0.3 · 199 MB</span>
+                            <!-- 往期版本：直接跳转到 Releases 页面 -->
+                            <a href="https://github.com/SilverBoneStudio/Bone-Down/releases" 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               class="btn btn-old-version">
+                                往期版本
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 赞助弹窗 -->
+    <div class="modal-overlay" id="sponsorModal">
+        <div class="modal-box">
+            <h3>❤️ 支持银骨工作室</h3>
+            <p>
+                感谢您下载我们的软件！<br />
+                您的赞助将帮助我们持续创作更好的作品。
+            </p>
+            <a href="https://afdian.com/a/SilverBoneStudio/plan" target="_blank" class="btn btn-primary" style="padding:10px 32px; font-size:16px;">
+                前往爱发电赞助
+            </a>
+            <br />
+            <button class="btn-close-modal" id="closeModalBtn">稍后再说</button>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <span>Silver Bone Studio</span> &nbsp;·&nbsp; 银骨工作室 &nbsp;·&nbsp; 2026
+    </footer>
+
+    <script>
+        (function() {
+            // ---- 展开/收起 ----
+            const headers = document.querySelectorAll('.item-header');
+            headers.forEach(header => {
+                header.addEventListener('click', function(e) {
+                    const targetId = this.dataset.target;
+                    const detail = document.getElementById(targetId);
+                    if (!detail) return;
+                    const isOpen = detail.classList.contains('open');
+                    // 互斥关闭其他项
+                    document.querySelectorAll('.item-detail.open').forEach(d => {
+                        if (d.id !== targetId) {
+                            d.classList.remove('open');
+                            const icon = d.closest('.software-item').querySelector('.toggle-icon');
+                            if (icon) icon.classList.remove('open');
+                        }
+                    });
+                    if (isOpen) {
+                        detail.classList.remove('open');
+                        this.querySelector('.toggle-icon').classList.remove('open');
+                    } else {
+                        detail.classList.add('open');
+                        this.querySelector('.toggle-icon').classList.add('open');
+                    }
+                });
+            });
+
+            // ---- 下载按钮：打开真实链接 + 弹窗 ----
+            const downloadBtn = document.querySelector('.btn-download');
+            const modal = document.getElementById('sponsorModal');
+            const closeBtn = document.getElementById('closeModalBtn');
+
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const url = this.dataset.url;
+                    if (url) {
+                        // 在新窗口/新标签页打开下载链接（不阻塞弹窗）
+                        window.open(url, '_blank');
+                    }
+                    // 显示赞助弹窗
+                    modal.classList.add('active');
+                });
+            }
+
+            // 关闭弹窗
+            closeBtn.addEventListener('click', function() {
+                modal.classList.remove('active');
+            });
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        })();
+    </script>
+
+</body>
+</html>
